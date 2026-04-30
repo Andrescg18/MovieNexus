@@ -15,8 +15,8 @@
   color: var(--text-primary);
 }
 
-.logo-blue {
-  color: var(--secondary-color);
+.logo-red {
+  color: var(--primary-color);
 }
 
 .nav-links {
