@@ -1,12 +1,13 @@
 :root {
-  --primary-color: #E50914; /* Rojo vibrante */
-  --secondary-color: #ffffff; /* Blanco para contrastar */
-  --bg-color: #111111; /* Negro puro */
-  --surface-color: #1f1f1f;
+  --primary-color: #ff000d; /* Rojo ultra vibrante */
+  --primary-glow: rgba(255, 0, 13, 0.6);
+  --secondary-color: #ffffff;
+  --bg-color: #000000; /* Negro absoluto */
+  --surface-color: #121212;
   --text-primary: #ffffff;
-  --text-secondary: #b3b3b3;
+  --text-secondary: #cccccc;
   --font-family: 'Inter', 'Roboto', sans-serif;
-  --transition: all 0.3s ease;
+  --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 body {

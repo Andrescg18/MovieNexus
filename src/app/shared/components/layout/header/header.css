@@ -17,6 +17,7 @@
 
 .logo-red {
   color: var(--primary-color);
+  text-shadow: 0 0 10px var(--primary-glow);
 }
 
 .nav-links {
