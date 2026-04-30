@@ -1,9 +1,10 @@
 :root {
-  --primary-color: #E50914; /* Rojo vibrante */
-  --bg-color: #141414; /* Negro profundo */
-  --surface-color: #1f1f1f;
+  --primary-color: #ff4757; /* Coral/Rojo */
+  --secondary-color: #33b5e5; /* Azul claro */
+  --bg-color: #0b101e; /* Azul oscuro casi negro */
+  --surface-color: #1a1f2e;
   --text-primary: #ffffff;
-  --text-secondary: #b3b3b3;
+  --text-secondary: #a0a5b1;
   --font-family: 'Inter', 'Roboto', sans-serif;
   --transition: all 0.3s ease;
 }
@@ -25,4 +26,5 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
 
