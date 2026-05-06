@@ -11,12 +11,13 @@ export class Home implements OnInit {
   private movieService = inject(MovieService);
 
   ngOnInit(): void {
+    console.log('🎬 Home Inicializado. Cargando películas...');
     this.movieService.getTrendingMovies().subscribe({
       next: (movies) => {
-        console.log('Películas en tendencia:', movies);
+        console.log('✅ ¡Éxito! Datos recibidos de TMDB:', movies);
       },
       error: (error) => {
-        console.error('Error al obtener películas:', error);
+        console.error('❌ Error al obtener películas:', error);
       }
     });
   }
