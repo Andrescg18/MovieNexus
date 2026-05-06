@@ -2,35 +2,44 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem 5%;
-  background-color: transparent;
+  padding: 1rem 5%;
+  background-color: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--glass-border);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: var(--transition-fast);
 }
 
 .logo {
   font-size: 1.5rem;
-  font-weight: bold;
+  font-weight: 800;
+  letter-spacing: -0.5px;
 }
 
 .logo-white {
-  color: var(--text-primary);
+  color: var(--text-main);
 }
 
 .logo-red {
-  color: var(--primary-color);
-  text-shadow: 0 0 10px var(--primary-glow);
+  color: var(--primary);
+  text-shadow: var(--shadow-glow);
 }
 
 .nav-links {
   display: flex;
-  gap: 2rem;
+  gap: 2.5rem;
 }
 
 .nav-links a {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  transition: var(--transition);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: var(--transition-fast);
 }
 
 .nav-links a:hover, .nav-links a.active {
-  color: var(--secondary-color);
+  color: var(--primary);
 }

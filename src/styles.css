@@ -1,21 +1,39 @@
 :root {
-  --primary-color: #ff000d; /* Rojo ultra vibrante */
+  /* Colors */
+  --primary: #ff000d;
   --primary-glow: rgba(255, 0, 13, 0.6);
-  --secondary-color: #ffffff;
-  --bg-color: #000000; /* Negro absoluto */
-  --surface-color: #121212;
-  --text-primary: #ffffff;
-  --text-secondary: #cccccc;
-  --font-family: 'Inter', 'Roboto', sans-serif;
-  --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --bg-dark: #000000;
+  --bg-card: #121212;
+  --text-main: #ffffff;
+  --text-muted: #b3b3b3;
+  
+  /* Spacing */
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 4rem;
+
+  /* Glassmorphism */
+  --glass-bg: rgba(18, 18, 18, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  
+  /* Utils */
+  --border-radius: 12px;
+  --transition-fast: all 0.2s ease;
+  --transition-smooth: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --shadow-glow: 0 0 20px var(--primary-glow);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  background-color: var(--bg-color);
-  color: var(--text-primary);
-  font-family: var(--font-family);
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  font-family: 'Inter', 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
