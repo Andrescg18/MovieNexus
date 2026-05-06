@@ -26,19 +26,18 @@
 h1 {
   font-size: 4rem;
   font-weight: 800;
-  margin-bottom: 3.5rem; /* Increased margin for the reflection space */
+  margin-bottom: 2rem;
   letter-spacing: -1px;
-  -webkit-box-reflect: below -20px linear-gradient(transparent, rgba(0,0,0,0.2));
 }
 
 .text-white {
   color: var(--text-main);
-  text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+  text-shadow: 0 0 20px var(--primary);
 }
 
 .text-coral {
   color: var(--primary);
-  text-shadow: var(--shadow-glow);
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
 }
 
 .subtitle {
