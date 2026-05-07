@@ -23,8 +23,11 @@ export class Home implements OnInit {
       next: (movies) => {
         console.log('✅ ¡Éxito! Datos recibidos de TMDB:', movies);
         if (movies.length > 0) {
-          // Buscamos Mortal Kombat 2 o algo similar
-          const mk2 = movies.find(m => m.title.toLowerCase().includes('mortal kombat 2'));
+          // Buscamos Mortal Kombat 2 (soporta '2' o 'II')
+          const mk2 = movies.find(m => 
+            m.title.toLowerCase().includes('mortal kombat 2') || 
+            m.title.toLowerCase().includes('mortal kombat ii')
+          );
           
           if (mk2) {
             this.featuredMovie = mk2;
