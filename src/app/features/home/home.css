@@ -38,7 +38,12 @@ h1 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: shimmerTitle 5s linear infinite;
-  filter: drop-shadow(0 0 15px rgba(255, 0, 13, 0.2));
+  /* Dripping liquid effect */
+  text-shadow: 0 4px 4px rgba(0,0,0,0.5),
+               0 8px 0 var(--primary),
+               0 12px 0 var(--primary),
+               0 16px 15px rgba(255,0,13,0.4);
+  filter: drop-shadow(0 0 10px rgba(255, 0, 13, 0.2));
 }
 
 @keyframes shimmerTitle {
