@@ -16,6 +16,8 @@ export class Home implements OnInit {
   private movieService = inject(MovieService);
   featuredMovie?: Movie;
   trendingMovies: Movie[] = [];
+  popularMovies: Movie[] = [];
+
 
   ngOnInit(): void {
     console.log('🎬 Home Inicializado. Cargando películas...');
@@ -40,6 +42,15 @@ export class Home implements OnInit {
       },
       error: (error) => {
         console.error('❌ Error al obtener películas:', error);
+      }
+    });
+
+    this.movieService.getPopularMovies().subscribe({
+      next: (movies) => {
+        this.popularMovies = movies;
+      },
+      error: (error) => {
+        console.error('❌ Error al obtener películas populares:', error);
       }
     });
   }
