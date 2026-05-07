@@ -12,7 +12,7 @@ export class MovieService {
   private apiUrl = environment.apiUrl;
 
   getTrendingMovies(): Observable<Movie[]> {
-    return this.http.get<MovieResponse>(`${this.apiUrl}/trending/movie/week`)
+    return this.http.get<MovieResponse>(`${this.apiUrl}/trending/movie/week?language=es-ES`)
       .pipe(
         map(response => response.results)
       );
