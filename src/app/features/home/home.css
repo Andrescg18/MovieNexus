@@ -28,9 +28,9 @@ h1 {
 }
 
 .animated-title {
-  font-family: 'Nosifer', cursive;
-  font-size: 3.5rem; /* Nosifer is very wide, so we reduce size */
-  line-height: 1.4;
+  font-size: 5rem;
+  font-weight: 900;
+  letter-spacing: -2px;
   background: linear-gradient(
     to right,
     #ffffff,
@@ -41,7 +41,15 @@ h1 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: shimmerTitle 5s linear infinite;
-  filter: drop-shadow(0 0 10px rgba(255, 0, 13, 0.3));
+  /* Advanced dripping effect using stacked shadows */
+  text-shadow: 0 4px 0 rgba(0,0,0,0.5),
+               0 8px 0 var(--primary),
+               0 12px 0 var(--primary),
+               0 16px 2px var(--primary),
+               0 20px 0 var(--primary),
+               0 24px 0 var(--primary),
+               0 28px 10px rgba(0,0,0,0.4);
+  filter: drop-shadow(0 0 10px rgba(255, 0, 13, 0.2));
 }
 
 @keyframes shimmerTitle {
