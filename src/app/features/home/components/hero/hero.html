@@ -1,0 +1,20 @@
+<section 
+  class="hero" 
+  [style.background-image]="backdropUrl"
+>
+  <div class="hero-overlay"></div>
+  
+  <div class="hero-content">
+    <h1 class="text-gradient">{{ movie.title }}</h1>
+    <p class="hero-description">{{ movie.overview }}</p>
+    
+    <div class="hero-actions">
+      <button class="btn-premium">
+        <span class="icon">▶</span> Reproducir
+      </button>
+      <button class="btn-outline">
+        <span class="icon">ℹ</span> Más información
+      </button>
+    </div>
+  </div>
+</section>

@@ -1,7 +1,17 @@
-<section class="hero">
-  <div class="hero-content">
-    <h1 class="animated-title">Bienvenido a MovieNexus</h1>
-    <p class="subtitle">Explora las películas más populares, busca tus favoritas y mantente<br>al día con los últimos estrenos.</p>
-    <button class="btn-primary">Empezar a Explorar</button>
+@if (featuredMovie) {
+  <app-hero [movie]="featuredMovie"></app-hero>
+  
+  <section class="trending-section">
+    <h2 class="section-title">Películas en Tendencia</h2>
+    
+    <div class="movie-row">
+      @for (movie of trendingMovies; track movie.id) {
+        <app-movie-card [movie]="movie"></app-movie-card>
+      }
+    </div>
+  </section>
+} @else {
+  <div class="loading-state">
+    <p>Cargando películas...</p>
   </div>
-</section>
+}
