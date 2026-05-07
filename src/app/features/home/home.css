@@ -41,12 +41,7 @@ h1 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: shimmerTitle 5s linear infinite;
-  /* Liquid dripping effect using SVG filter and strategic shadows */
-  filter: url('#goo') drop-shadow(0 0 10px rgba(255, 0, 13, 0.2));
-  text-shadow: 0 5px 2px var(--primary),
-               0 15px 5px var(--primary),
-               0 25px 10px rgba(0,0,0,0.5);
-  position: relative;
+  filter: drop-shadow(0 0 15px rgba(255, 0, 13, 0.2));
 }
 
 @keyframes shimmerTitle {
