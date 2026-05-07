@@ -28,9 +28,9 @@ h1 {
 }
 
 .animated-title {
-  font-family: 'Luckiest Guy', cursive;
-  font-size: 6rem;
-  letter-spacing: 2px;
+  font-size: 4.5rem;
+  font-weight: 700;
+  letter-spacing: -1px;
   background: linear-gradient(
     to right,
     #ffffff,
