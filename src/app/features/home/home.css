@@ -28,9 +28,6 @@ h1 {
 }
 
 .animated-title {
-  font-family: 'Luckiest Guy', cursive;
-  font-size: 6rem;
-  letter-spacing: 2px;
   background: linear-gradient(
     to right,
     #ffffff,
@@ -41,10 +38,7 @@ h1 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: shimmerTitle 5s linear infinite;
-  /* Dripping effect using stacked shadows */
-  filter: drop-shadow(0 2px 0 rgba(0,0,0,0.8))
-          drop-shadow(0 4px 0 rgba(255,0,0,0.3))
-          drop-shadow(0 8px 10px rgba(255,0,0,0.5));
+  filter: drop-shadow(0 0 15px rgba(255, 0, 13, 0.2));
 }
 
 @keyframes shimmerTitle {
@@ -59,7 +53,6 @@ h1 {
 
 .subtitle {
   font-size: 1.25rem;
-  font-family: 'Inter', sans-serif;
   color: var(--text-muted);
   margin-bottom: 3.5rem;
   line-height: 1.6;
