@@ -1,3 +1,9 @@
+.movie-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
 .movie-card {
   width: 200px;
   cursor: pointer;

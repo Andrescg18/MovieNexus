@@ -6,6 +6,9 @@ export interface Movie {
   backdrop_path: string;
   release_date: string;
   vote_average: number;
+  original_language?: string;
+  runtime?: number;
+  genres?: { id: number; name: string }[];
 }
 
 export interface MovieResponse {
