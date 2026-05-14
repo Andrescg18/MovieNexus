@@ -66,27 +66,46 @@
 
 .title {
   font-family: 'Luckiest Guy', cursive;
-  font-size: 4rem;
-  margin-bottom: 1rem;
-  line-height: 1.1;
-  background: linear-gradient(to bottom, #fff, #ccc);
+  font-size: 5.5rem;
+  margin-bottom: 0.8rem;
+  line-height: 1;
+  background: linear-gradient(to bottom, #ffffff 20%, #a2a2a2 90%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  /* Glossy 3D Effect */
+  text-shadow: 
+    0 1px 0 #ccc,
+    0 2px 0 #bbb,
+    0 3px 0 #aaa,
+    0 4px 0 #999,
+    0 5px 0 #888,
+    0 8px 15px rgba(0,0,0,0.5);
+  filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.4));
+  letter-spacing: 1px;
 }
 
 .meta {
   display: flex;
-  gap: 1.5rem;
-  font-size: 1.1rem;
-  color: #ccc;
-  margin-bottom: 1.5rem;
+  gap: 1.8rem;
+  font-size: 1.3rem;
+  color: #ffffff;
+  margin-bottom: 2rem;
   align-items: center;
+  font-weight: 500;
 }
 
 .rating {
-  font-weight: bold;
-  color: #fbbf24;
+  font-weight: 800;
+  color: #ffc107; /* Bright Yellow/Gold */
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-shadow: 0 0 10px rgba(255, 193, 7, 0.2);
+}
+
+.date, .runtime, .lang {
+  color: #e0e0e0;
+  opacity: 0.9;
 }
 
 .tagline {

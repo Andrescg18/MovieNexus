@@ -2,10 +2,39 @@
   <div class="logo" routerLink="/" style="cursor: pointer;">
     <span class="logo-white">Movie</span><span class="logo-red">Nexus</span>
   </div>
+
+  <div class="search-container">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input 
+        type="text" 
+        [value]="searchQuery()"
+        (input)="onSearch($event)"
+        placeholder="Buscar películas..."
+      >
+      @if (searchQuery()) {
+        <button class="clear-btn" (click)="clearSearch()">✕</button>
+      }
+    </div>
+
+    @if (searchResults().length > 0) {
+      <div class="search-dropdown">
+        @for (movie of searchResults() | slice:0:5; track movie.id) {
+          <div class="search-item" [routerLink]="['/movie', movie.id]" (click)="clearSearch()">
+            <img [src]="'https://image.tmdb.org/t/p/w92' + movie.poster_path" [alt]="movie.title">
+            <div class="item-info">
+              <span class="item-title">{{ movie.title }}</span>
+              <span class="item-year">{{ movie.release_date | date:'yyyy' }}</span>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+
   <nav class="nav-links">
-    <a href="#" class="active">Inicio</a>
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Inicio</a>
     <a href="#">Películas</a>
-    <a href="#">Buscar</a>
     <a href="#">Favoritos</a>
   </nav>
 </header>

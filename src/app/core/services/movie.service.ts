@@ -36,4 +36,11 @@ export class MovieService {
         map(response => response.cast)
       );
   }
+
+  searchMovies(query: string): Observable<Movie[]> {
+    return this.http.get<MovieResponse>(`${this.apiUrl}/search/movie?query=${query}&language=es-ES`)
+      .pipe(
+        map(response => response.results)
+      );
+  }
 }
