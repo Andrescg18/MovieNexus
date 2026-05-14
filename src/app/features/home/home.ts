@@ -1,9 +1,16 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MovieService } from '../../core/services/movie.service';
 import { Hero } from './components/hero/hero';
 import { MovieCard } from './components/movie-card/movie-card';
 import { Movie } from '../../core/models/movie.model';
 import { CommonModule } from '@angular/common';
+import { forkJoin, map, catchError, of, Observable } from 'rxjs';
+
+interface HomeData {
+  featured: Movie;
+  trending: Movie[];
+  popular: Movie[];
+}
 
 @Component({
   selector: 'app-home',
@@ -12,35 +19,24 @@ import { CommonModule } from '@angular/common';
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
-export class Home implements OnInit {
+export class Home {
   private movieService = inject(MovieService);
-  featuredMovie?: Movie;
-  trendingMovies: Movie[] = [];
-  popularMovies: Movie[] = [];
-
-
-  ngOnInit(): void {
-    console.log('🎬 Home Inicializado. Cargando películas...');
-    this.movieService.getTrendingMovies().subscribe({
-      next: (movies) => {
-        console.log('✅ ¡Éxito! Datos recibidos de TMDB:', movies);
-        if (movies.length > 0) {
-          this.featuredMovie = movies[0];
-          this.trendingMovies = movies.slice(1);
-        }
-      },
-      error: (error) => {
-        console.error('❌ Error al obtener películas:', error);
-      }
-    });
-
-    this.movieService.getPopularMovies().subscribe({
-      next: (movies) => {
-        this.popularMovies = movies;
-      },
-      error: (error) => {
-        console.error('❌ Error al obtener películas populares:', error);
-      }
-    });
-  }
+  
+  data$: Observable<HomeData | null> = forkJoin({
+    trending: this.movieService.getTrendingMovies(),
+    popular: this.movieService.getPopularMovies()
+  }).pipe(
+    map(({ trending, popular }) => {
+      if (trending.length === 0) return null;
+      return {
+        featured: trending[0],
+        trending: trending.slice(1),
+        popular: popular
+      };
+    }),
+    catchError(err => {
+      console.error('❌ Error cargando datos de inicio:', err);
+      return of(null);
+    })
+  );
 }

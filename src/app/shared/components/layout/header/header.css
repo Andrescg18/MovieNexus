@@ -14,9 +14,10 @@
 }
 
 .logo {
-  font-size: 1.5rem;
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 2rem;
   font-weight: 800;
-  letter-spacing: -0.5px;
+  letter-spacing: 1px;
 }
 
 .logo-white {
@@ -26,6 +27,18 @@
 .logo-red {
   color: var(--primary);
   text-shadow: var(--shadow-glow);
+  position: relative;
+  display: inline-block;
+  background: linear-gradient(to bottom, var(--primary) 0%, #ff4d4d 50%, var(--primary) 100%);
+  background-size: 100% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: liquidFlow 3s infinite linear;
+}
+
+@keyframes liquidFlow {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 0% 100%; }
 }
 
 .nav-links {

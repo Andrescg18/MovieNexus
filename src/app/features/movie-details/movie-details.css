@@ -14,6 +14,12 @@
   background-size: cover;
   background-position: center;
   z-index: 0;
+  animation: backdropZoom 20s infinite alternate ease-in-out;
+}
+
+@keyframes backdropZoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.1); }
 }
 
 .overlay {

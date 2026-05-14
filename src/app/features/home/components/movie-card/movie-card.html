@@ -12,6 +12,14 @@
         </div>
         <button class="btn-play-mini">▶</button>
       </div>
+      <button 
+        class="btn-favorite" 
+        [class.active]="isFavorite()"
+        (click)="toggleFavorite($event)"
+        [title]="isFavorite() ? 'Quitar de favoritos' : 'Añadir a favoritos'"
+      >
+        <span class="heart-icon">{{ isFavorite() ? '❤️' : '🤍' }}</span>
+      </button>
     </div>
     <h3 class="movie-title">{{ movie.title }}</h3>
   </div>
