@@ -19,8 +19,8 @@ export class MovieService {
       );
   }
 
-  getPopularMovies(): Observable<Movie[]> {
-    return this.http.get<MovieResponse>(`${this.apiUrl}/movie/popular?language=es-ES`)
+  getPopularMovies(page: number = 1): Observable<Movie[]> {
+    return this.http.get<MovieResponse>(`${this.apiUrl}/movie/popular?language=es-ES&page=${page}`)
       .pipe(
         map(response => response.results)
       );

@@ -81,3 +81,46 @@ app-movie-card:nth-child(7) { animation-delay: 0.7s; }
 app-movie-card:nth-child(8) { animation-delay: 0.8s; }
 app-movie-card:nth-child(9) { animation-delay: 0.9s; }
 app-movie-card:nth-child(10) { animation-delay: 1s; }
+
+/* Infinite Scroll styles */
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 2.5rem;
+  justify-items: center;
+  padding: 3rem 0;
+}
+
+.scroll-anchor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 0;
+  color: var(--text-muted);
+  gap: 1rem;
+  font-size: 1.1rem;
+}
+
+.spinner {
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-left-color: var(--primary);
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  animation: spin 1s linear infinite;
+  box-shadow: 0 0 10px rgba(229, 9, 20, 0.2);
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+  .movie-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
