@@ -52,14 +52,35 @@
           </div>
         </div>
 
-        <div class="cast-section slide-up" style="animation-delay: 0.3s;">
-          <h2>Elenco Principal</h2>
-          <div class="cast-grid">
-            @for (actor of state.data.cast | slice:0:15; track actor.id) {
-              <app-cast-card [actor]="actor"></app-cast-card>
-            }
+        <!-- Sección de Tráiler con Carga Diferida (@defer) -->
+        @defer (on viewport) {
+          <div class="trailer-section slide-up" style="animation-delay: 0.2s;">
+            <h2>Tráiler Oficial</h2>
+            <app-movie-trailer [movieId]="state.data.movie.id.toString()"></app-movie-trailer>
           </div>
-        </div>
+        } @placeholder {
+          <div class="placeholder-card">
+            <div class="spinner"></div>
+            <p>Haz scroll para ver el tráiler oficial...</p>
+          </div>
+        }
+
+        <!-- Sección de Elenco Principal con Carga Diferida (@defer) -->
+        @defer (on viewport) {
+          <div class="cast-section slide-up" style="animation-delay: 0.3s;">
+            <h2>Elenco Principal</h2>
+            <div class="cast-grid">
+              @for (actor of state.data.cast | slice:0:15; track actor.id) {
+                <app-cast-card [actor]="actor"></app-cast-card>
+              }
+            </div>
+          </div>
+        } @placeholder {
+          <div class="placeholder-card">
+            <div class="spinner"></div>
+            <p>Cargando elenco al hacer scroll...</p>
+          </div>
+        }
 
       </div>
     </div>

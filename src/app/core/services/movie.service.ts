@@ -43,4 +43,11 @@ export class MovieService {
         map(response => response.results)
       );
   }
+
+  getMovieVideos(id: string): Observable<any[]> {
+    return this.http.get<any>(`${this.apiUrl}/movie/${id}/videos?language=es-ES`)
+      .pipe(
+        map(response => response.results)
+      );
+  }
 }

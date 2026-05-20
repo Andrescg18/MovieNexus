@@ -6,6 +6,7 @@ import { Movie } from '../../core/models/movie.model';
 import { Cast } from '../../core/models/cast.model';
 import { Observable, forkJoin, switchMap, catchError, of, map } from 'rxjs';
 import { CastCard } from './components/cast-card/cast-card';
+import { MovieTrailer } from './components/movie-trailer/movie-trailer';
 
 interface PageState {
   data?: { movie: Movie; cast: Cast[] };
@@ -15,7 +16,7 @@ interface PageState {
 @Component({
   selector: 'app-movie-details',
   standalone: true,
-  imports: [CommonModule, RouterModule, CastCard],
+  imports: [CommonModule, RouterModule, CastCard, MovieTrailer],
   templateUrl: './movie-details.html',
   styleUrl: './movie-details.css'
 })
