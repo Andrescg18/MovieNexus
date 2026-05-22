@@ -141,43 +141,102 @@
 
 .actions {
   display: flex;
-  gap: 1rem;
+  gap: 1.2rem;
 }
 
 .btn-premium, .btn-outline, .btn-primary {
-  padding: 1rem 2rem;
-  border-radius: 8px;
+  padding: 0.9rem 2.2rem;
+  border-radius: 50px;
   font-size: 1.1rem;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: 0.5px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  transition: all 0.3s ease;
+  justify-content: center;
+  gap: 0.75rem;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   border: none;
   text-decoration: none;
 }
 
 .btn-premium {
-  background: linear-gradient(135deg, #e50914, #b20710);
+  background: linear-gradient(135deg, var(--primary), #ff3e46);
   color: white;
   box-shadow: 0 4px 15px rgba(229, 9, 20, 0.4);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.btn-premium::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #ff3e46, var(--primary));
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: -1;
+  border-radius: 50px;
 }
 
 .btn-premium:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(229, 9, 20, 0.6);
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 8px 25px rgba(229, 9, 20, 0.6);
+}
+
+.btn-premium:hover::before {
+  opacity: 1;
+}
+
+.btn-premium:active {
+  transform: translateY(-1px) scale(0.98);
+}
+
+.btn-premium .icon {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.btn-premium:hover .icon {
+  animation: pulse 1s infinite alternate;
 }
 
 .btn-outline {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
   color: white;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(5px);
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .btn-outline:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.15);
+}
+
+.btn-outline:active {
+  transform: translateY(-1px) scale(0.98);
+}
+
+.btn-outline .icon {
+  font-size: 1.2rem;
+  transition: transform 0.4s ease;
+}
+
+.btn-outline:hover .icon {
+  transform: rotate(90deg);
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.3); }
 }
 
 .cast-section {

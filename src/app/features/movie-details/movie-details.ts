@@ -45,4 +45,13 @@ export class MovieDetails implements OnInit {
   ngOnInit() {
     window.scrollTo(0, 0);
   }
+
+  scrollToTrailer() {
+    if (typeof document !== 'undefined') {
+      const element = document.querySelector('.trailer-section');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+  }
 }
