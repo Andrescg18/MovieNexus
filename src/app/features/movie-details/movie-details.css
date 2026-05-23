@@ -67,42 +67,15 @@
   position: relative;
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 0 35px rgba(0, 240, 255, 0.3);
-  border: 2px solid rgba(0, 240, 255, 0.4);
+  box-shadow: 0 4px 20px rgba(255, 0, 85, 0.15);
+  border: 1px solid rgba(255, 0, 85, 0.2);
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .poster:hover {
   transform: scale(1.03) rotate(1deg);
-  box-shadow: 0 0 50px rgba(0, 240, 255, 0.55);
-}
-
-.poster::before {
-  content: '┌';
-  position: absolute;
-  top: 15px;
-  left: 15px;
-  color: var(--neon-cyan);
-  font-family: monospace;
-  font-weight: bold;
-  font-size: 2rem;
-  z-index: 10;
-  text-shadow: 0 0 10px var(--neon-cyan);
-  pointer-events: none;
-}
-
-.poster::after {
-  content: '┘';
-  position: absolute;
-  bottom: 15px;
-  right: 15px;
-  color: var(--neon-cyan);
-  font-family: monospace;
-  font-weight: bold;
-  font-size: 2rem;
-  z-index: 10;
-  text-shadow: 0 0 10px var(--neon-cyan);
-  pointer-events: none;
+  box-shadow: 0 0 40px rgba(255, 0, 85, 0.5);
+  border-color: var(--primary);
 }
 
 .poster img {
@@ -115,11 +88,11 @@
   font-size: 5.5rem;
   margin-bottom: 0.8rem;
   line-height: 1;
-  background: linear-gradient(135deg, #ffffff 40%, var(--neon-cyan) 100%);
+  background: linear-gradient(135deg, #ffffff 40%, var(--primary) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  /* Holographic Neon Glow */
-  filter: drop-shadow(0 0 15px rgba(0, 240, 255, 0.45)) drop-shadow(2px 4px 6px rgba(0,0,0,0.6));
+  /* Holographic Red Neon Glow */
+  filter: drop-shadow(0 0 15px rgba(255, 0, 85, 0.35)) drop-shadow(2px 4px 6px rgba(0,0,0,0.6));
   letter-spacing: 2px;
 }
 
