@@ -1,11 +1,16 @@
 :root {
-  /* Colors */
-  --primary: #ff000d;
-  --primary-glow: rgba(255, 0, 13, 0.6);
-  --bg-dark: #000000;
-  --bg-card: #121212;
+  /* Colors - VR / Cyberpunk palette */
+  --primary: #ff0055;
+  --primary-glow: rgba(255, 0, 85, 0.6);
+  --neon-cyan: #00f0ff;
+  --neon-cyan-glow: rgba(0, 240, 255, 0.4);
+  --neon-magenta: #ff007f;
+  --neon-magenta-glow: rgba(255, 0, 127, 0.4);
+  --neon-purple: #7b2cbf;
+  --bg-dark: #030308;
+  --bg-card: rgba(10, 10, 20, 0.5);
   --text-main: #ffffff;
-  --text-muted: #b3b3b3;
+  --text-muted: #8892b0;
   
   /* Spacing */
   --spacing-sm: 0.5rem;
@@ -14,11 +19,11 @@
   --spacing-xl: 4rem;
 
   /* Glassmorphism */
-  --glass-bg: rgba(18, 18, 18, 0.7);
-  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-bg: rgba(5, 5, 12, 0.75);
+  --glass-border: rgba(0, 240, 255, 0.15);
   
   /* Utils */
-  --border-radius: 12px;
+  --border-radius: 16px;
   --transition-fast: all 0.2s ease;
   --transition-smooth: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   --shadow-glow: 0 0 20px var(--primary-glow);
@@ -49,12 +54,49 @@ html {
 
 body {
   background-color: var(--bg-dark);
-  background: radial-gradient(circle at 50% 10%, #1a0505 0%, #000000 100%);
+  background: radial-gradient(circle at 50% 0%, #130a24 0%, #030308 100%);
   background-attachment: fixed;
   color: var(--text-main);
   font-family: 'Inter', 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  position: relative;
+}
+
+/* Red de Realidad Virtual (HUD Grid) */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(0, 240, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.02) 1px, transparent 1px);
+  background-size: 50px 50px;
+  background-position: center top;
+  pointer-events: none;
+  z-index: -2;
+}
+
+/* Efecto Escáner Láser de Realidad Virtual */
+html::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.25), transparent);
+  animation: scanline 8s linear infinite;
+  pointer-events: none;
+  z-index: 10000;
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100px); }
+  100% { transform: translateY(100vh); }
 }
 
 /* Glassmorphism Global Overlay */

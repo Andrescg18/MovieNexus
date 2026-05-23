@@ -194,3 +194,52 @@
   font-size: 0.8rem;
   color: var(--text-muted);
 }
+
+/* --- HUD / VR ESTILOS PARA HEADER --- */
+.hud-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 240, 255, 0.05);
+  border: 1px solid rgba(0, 240, 255, 0.15);
+  padding: 0.35rem 0.8rem;
+  border-radius: 4px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.75rem;
+  color: var(--neon-cyan, #00f0ff);
+  text-shadow: 0 0 5px rgba(0, 240, 255, 0.5);
+  box-shadow: inset 0 0 10px rgba(0, 240, 255, 0.05);
+}
+
+.hud-dot {
+  width: 6px;
+  height: 6px;
+  background-color: var(--neon-cyan, #00f0ff);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--neon-cyan, #00f0ff);
+  animation: pulse-hud 1.5s infinite ease-in-out;
+}
+
+.hud-tag {
+  letter-spacing: 1px;
+}
+
+.hud-tag.code {
+  color: var(--neon-magenta, #ff007f);
+  text-shadow: 0 0 5px rgba(255, 0, 127, 0.5);
+  background: rgba(255, 0, 127, 0.1);
+  padding: 1px 4px;
+  border-radius: 2px;
+}
+
+@keyframes pulse-hud {
+  0% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.4); opacity: 1; box-shadow: 0 0 12px var(--neon-cyan, #00f0ff); }
+  100% { transform: scale(1); opacity: 0.5; }
+}
+
+@media (max-width: 900px) {
+  .hud-indicator {
+    display: none;
+  }
+}
