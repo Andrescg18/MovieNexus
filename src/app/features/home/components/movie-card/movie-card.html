@@ -4,6 +4,7 @@
       <img 
         [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" 
         [alt]="movie.title"
+        [style.view-transition-name]="'movie-poster-' + movie.id"
         loading="lazy"
       >
       <div class="card-overlay">

@@ -17,7 +17,11 @@
         
         <div class="details-grid">
           <div class="poster slide-up">
-            <img [src]="'https://image.tmdb.org/t/p/w500' + state.data.movie.poster_path" [alt]="state.data.movie.title">
+            <img 
+              [src]="'https://image.tmdb.org/t/p/w500' + state.data.movie.poster_path" 
+              [alt]="state.data.movie.title"
+              [style.view-transition-name]="'movie-poster-' + state.data.movie.id"
+            >
           </div>
           
           <div class="info slide-up" style="animation-delay: 0.1s;">

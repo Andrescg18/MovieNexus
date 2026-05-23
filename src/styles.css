@@ -178,3 +178,15 @@ a {
     background-position: 0% 50%;
   }
 }
+
+/* --- VIEW TRANSITIONS CUSTOMIZATIONS --- */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.4s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+::view-transition-group(*) {
+  animation-duration: 0.5s;
+  animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+}
