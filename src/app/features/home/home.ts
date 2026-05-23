@@ -3,6 +3,8 @@ import { isPlatformBrowser } from '@angular/common';
 import { MovieService } from '../../core/services/movie.service';
 import { Hero } from './components/hero/hero';
 import { MovieCard } from './components/movie-card/movie-card';
+import { SkeletonCard } from '../../shared/components/skeleton-card/skeleton-card';
+import { SkeletonHero } from '../../shared/components/skeleton-hero/skeleton-hero';
 import { Movie } from '../../core/models/movie.model';
 import { CommonModule } from '@angular/common';
 import { forkJoin, Subscription } from 'rxjs';
@@ -10,7 +12,7 @@ import { forkJoin, Subscription } from 'rxjs';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [Hero, MovieCard, CommonModule],
+  imports: [Hero, MovieCard, SkeletonCard, SkeletonHero, CommonModule],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })

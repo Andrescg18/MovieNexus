@@ -20,16 +20,36 @@
       }
     </div>
 
-    <!-- Ancla del Intersection Observer -->
-    <div #scrollAnchor class="scroll-anchor">
+    <!-- Ancla del Intersection Observer con Skeleton Loader integrado -->
+    <div #scrollAnchor class="scroll-anchor" style="width: 100%; margin-top: 2rem;">
       @if (isLoading()) {
-        <div class="spinner"></div>
-        <p>Cargando más películas...</p>
+        <div class="movie-grid" style="width: 100%; padding: 0; margin: 0;">
+          @for (i of [1, 2, 3, 4, 5]; track i) {
+            <app-skeleton-card></app-skeleton-card>
+          }
+        </div>
       }
     </div>
   </section>
 } @else {
-  <div class="loading-state">
-    <p>Cargando películas...</p>
-  </div>
+  <!-- Vista de carga inicial con Esqueletos Shimmer premium -->
+  <app-skeleton-hero></app-skeleton-hero>
+  
+  <section class="trending-section">
+    <h2 class="section-title">Películas en Tendencia</h2>
+    <div class="movie-row" style="overflow: hidden;">
+      @for (i of [1, 2, 3, 4, 5, 6]; track i) {
+        <app-skeleton-card></app-skeleton-card>
+      }
+    </div>
+  </section>
+
+  <section class="trending-section">
+    <h2 class="section-title">Películas Populares</h2>
+    <div class="movie-grid">
+      @for (i of [1, 2, 3, 4, 5, 6, 7, 8]; track i) {
+        <app-skeleton-card></app-skeleton-card>
+      }
+    </div>
+  </section>
 }

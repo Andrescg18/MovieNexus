@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable, map, delay } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Movie, MovieResponse } from '../models/movie.model';
 import { Cast, CreditsResponse } from '../models/cast.model';
@@ -15,6 +15,7 @@ export class MovieService {
   getTrendingMovies(): Observable<Movie[]> {
     return this.http.get<MovieResponse>(`${this.apiUrl}/trending/movie/week?language=es-ES`)
       .pipe(
+        delay(1500), // Simular carga para apreciar Skeletons
         map(response => response.results)
       );
   }
@@ -22,6 +23,7 @@ export class MovieService {
   getPopularMovies(page: number = 1): Observable<Movie[]> {
     return this.http.get<MovieResponse>(`${this.apiUrl}/movie/popular?language=es-ES&page=${page}`)
       .pipe(
+        delay(1500), // Simular carga para apreciar Skeletons
         map(response => response.results)
       );
   }

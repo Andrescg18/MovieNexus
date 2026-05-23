@@ -156,3 +156,25 @@ a {
   box-shadow: 0 10px 25px var(--primary-glow);
   filter: brightness(1.1);
 }
+
+/* --- SKELETON SHIMMER EFFECT --- */
+.skeleton-base {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.03) 25%,
+    rgba(255, 255, 255, 0.08) 37%,
+    rgba(255, 255, 255, 0.03) 63%
+  );
+  background-size: 400% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: 4px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
