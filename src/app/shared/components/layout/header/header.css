@@ -18,6 +18,7 @@
   font-size: 2rem;
   font-weight: 800;
   letter-spacing: 1px;
+  filter: drop-shadow(0 0 8px rgba(255, 0, 85, 0.45));
 }
 
 .logo-white {
@@ -26,7 +27,6 @@
 
 .logo-red {
   color: var(--primary);
-  text-shadow: var(--shadow-glow);
   position: relative;
   display: inline-block;
   background: linear-gradient(to bottom, var(--primary) 0%, #ff4d4d 50%, var(--primary) 100%);
