@@ -55,6 +55,18 @@
   padding: 0.5rem 0;
 }
 
+.nav-links a::before {
+  content: '[';
+  position: absolute;
+  left: -12px;
+  opacity: 0;
+  color: var(--primary);
+  font-family: monospace;
+  font-weight: bold;
+  transform: translateX(5px);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
 .nav-links a::after {
   content: '';
   position: absolute;
@@ -69,6 +81,12 @@
 
 .nav-links a:hover {
   color: var(--primary);
+  text-shadow: 0 0 10px var(--primary-glow);
+}
+
+.nav-links a:hover::before, .nav-links a.active::before {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .nav-links a:hover::after, .nav-links a.active::after {
