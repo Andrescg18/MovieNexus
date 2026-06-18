@@ -45,8 +45,7 @@ export class MovieComments implements OnInit {
 
   loadComments(): void {
     this.isLoading = true;
-    const itemId = `movie-${this.movieId}`;
-    this.commentService.getComments(itemId).subscribe({
+    this.commentService.getComments(Number(this.movieId)).subscribe({
       next: (comments: Comment[]) => {
         this.comments = comments;
         this.isLoading = false;
@@ -77,13 +76,13 @@ export class MovieComments implements OnInit {
 
     const newComment: Omit<Comment, 'id' | 'createdAt'> = {
       appId: 'MovieNexus-AndresGuardia',
-      itemId: `movie-${this.movieId}`,
-      author: this.authorName.trim(),
-      text: this.commentText.trim(),
+      movieId: Number(this.movieId),
+      userName: this.authorName.trim(),
+      comment: this.commentText.trim(),
       rating: this.selectedRating,
     };
 
-    this.commentService.addComment(newComment).subscribe({
+    this.commentService.createComment(newComment).subscribe({
       next: (created: Comment) => {
         this.comments.unshift(created);
         this.resetForm();

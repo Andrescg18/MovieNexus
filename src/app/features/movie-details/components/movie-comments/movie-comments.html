@@ -89,9 +89,9 @@
           <div class="comment-card fade-in">
             <div class="comment-top">
               <div class="comment-author-info">
-                <div class="avatar">{{ comment.author?.charAt(0)?.toUpperCase() }}</div>
+                <div class="avatar">{{ (comment.userName || '').charAt(0).toUpperCase() }}</div>
                 <div>
-                  <span class="comment-author">{{ comment.author }}</span>
+                  <span class="comment-author">{{ comment.userName }}</span>
                   <span class="comment-date">{{ getTimeAgo(comment.createdAt) }}</span>
                 </div>
               </div>
@@ -101,7 +101,7 @@
                 }
               </div>
             </div>
-            <p class="comment-text">{{ comment.text }}</p>
+            <p class="comment-text">{{ comment.comment }}</p>
           </div>
         }
       }

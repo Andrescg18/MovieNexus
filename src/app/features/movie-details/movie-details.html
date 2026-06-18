@@ -84,7 +84,7 @@
           </div>
         }
 
-        @defer (on immediate) {
+        @defer (on viewport) {
           <app-movie-comments [movieId]="state.data.movie.id"></app-movie-comments>
         } @placeholder {
           <div class="placeholder-card">
