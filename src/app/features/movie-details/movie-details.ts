@@ -4,9 +4,10 @@ import { RouterModule, ActivatedRoute } from '@angular/router';
 import { MovieService } from '../../core/services/movie.service';
 import { Movie } from '../../core/models/movie.model';
 import { Cast } from '../../core/models/cast.model';
-import { Observable, forkJoin, switchMap, catchError, of, map } from 'rxjs';
+import { Observable, forkJoin, switchMap, catchError, of, map, startWith } from 'rxjs';
 import { CastCard } from './components/cast-card/cast-card';
 import { MovieTrailer } from './components/movie-trailer/movie-trailer';
+import { MovieComments } from './components/movie-comments/movie-comments';
 
 interface PageState {
   data?: { movie: Movie; cast: Cast[] };
@@ -16,7 +17,7 @@ interface PageState {
 @Component({
   selector: 'app-movie-details',
   standalone: true,
-  imports: [CommonModule, RouterModule, CastCard, MovieTrailer],
+  imports: [CommonModule, RouterModule, CastCard, MovieTrailer, MovieComments],
   templateUrl: './movie-details.html',
   styleUrl: './movie-details.css'
 })
@@ -24,7 +25,7 @@ export class MovieDetails implements OnInit {
   private movieService = inject(MovieService);
   private route = inject(ActivatedRoute);
   
-  movieData$: Observable<PageState> = this.route.paramMap.pipe(
+  movieData$: Observable<PageState | null> = this.route.paramMap.pipe(
     switchMap(params => {
       const id = params.get('id');
       if (!id) return of({ error: true });
@@ -37,7 +38,8 @@ export class MovieDetails implements OnInit {
         catchError(err => {
           console.error('Error cargando detalles de la película', err);
           return of({ error: true });
-        })
+        }),
+        startWith(null)
       );
     })
   );

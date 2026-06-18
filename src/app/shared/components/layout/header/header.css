@@ -212,3 +212,56 @@
   font-size: 0.8rem;
   color: var(--text-muted);
 }
+
+/* --- Botón de Instalación en Navbar --- */
+.nav-install-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, rgba(229, 9, 20, 0.12) 0%, rgba(139, 0, 0, 0.12) 100%);
+  border: 1px solid rgba(229, 9, 20, 0.35);
+  color: var(--text-main);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 10px rgba(229, 9, 20, 0.05);
+}
+
+.nav-install-btn:hover {
+  background: linear-gradient(135deg, #e50914 0%, #b20710 100%);
+  border-color: #e50914;
+  box-shadow: 0 4px 15px rgba(229, 9, 20, 0.3);
+  transform: translateY(-1px);
+}
+
+.nav-install-btn:active {
+  transform: translateY(0);
+}
+
+.nav-btn-icon {
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.nav-install-btn:hover .nav-btn-icon {
+  transform: translateY(1px);
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    gap: 1.2rem;
+    align-items: center;
+  }
+  
+  .nav-install-btn span {
+    display: none; /* Oculta texto en móviles pequeños, deja el icono */
+  }
+  
+  .nav-install-btn {
+    padding: 8px;
+  }
+}
+

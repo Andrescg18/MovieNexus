@@ -86,6 +86,16 @@
           </div>
         }
 
+        <!-- Sección de Comentarios con Carga Diferida (@defer) -->
+        @defer (on viewport) {
+          <app-movie-comments [movieId]="state.data.movie.id.toString()"></app-movie-comments>
+        } @placeholder {
+          <div class="placeholder-card">
+            <div class="spinner"></div>
+            <p>Haz scroll para ver los comentarios...</p>
+          </div>
+        }
+
       </div>
     </div>
   }

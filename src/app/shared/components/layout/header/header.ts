@@ -3,6 +3,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MovieService } from '../../../../core/services/movie.service';
 import { Movie } from '../../../../core/models/movie.model';
+import { PwaService } from '../../../../core/services/pwa.service';
 
 @Component({
   selector: 'app-header',
@@ -13,6 +14,7 @@ import { Movie } from '../../../../core/models/movie.model';
 })
 export class Header {
   private movieService = inject(MovieService);
+  protected pwaService = inject(PwaService);
   
   searchQuery = signal('');
   searchResults = signal<Movie[]>([]);

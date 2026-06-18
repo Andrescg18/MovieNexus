@@ -96,6 +96,10 @@ export class Home implements OnInit, OnDestroy {
     });
   }
 
+  trackById(_index: number, movie: Movie): number {
+    return movie.id;
+  }
+
   ngOnDestroy(): void {
     if (this.observer) {
       this.observer.disconnect();
