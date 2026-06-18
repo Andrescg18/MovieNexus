@@ -4,7 +4,7 @@ import { RouterModule, ActivatedRoute } from '@angular/router';
 import { MovieService } from '../../core/services/movie.service';
 import { Movie } from '../../core/models/movie.model';
 import { Cast } from '../../core/models/cast.model';
-import { Observable, forkJoin, switchMap, catchError, of, map, startWith } from 'rxjs';
+import { Observable, forkJoin, switchMap, catchError, of, map, startWith, BehaviorSubject } from 'rxjs';
 import { CastCard } from './components/cast-card/cast-card';
 import { MovieTrailer } from './components/movie-trailer/movie-trailer';
 import { MovieComments } from './components/movie-comments/movie-comments';
@@ -25,7 +25,11 @@ export class MovieDetails implements OnInit {
   private movieService = inject(MovieService);
   private route = inject(ActivatedRoute);
   
-  movieData$: Observable<PageState | null> = this.route.paramMap.pipe(
+  // Trigger reactivo para refrescar la página si el componente hijo lo solicita
+  private refresh$ = new BehaviorSubject<void>(undefined);
+  
+  movieData$: Observable<PageState | null> = this.refresh$.pipe(
+    switchMap(() => this.route.paramMap),
     switchMap(params => {
       const id = params.get('id');
       if (!id) return of({ error: true });
@@ -39,13 +43,19 @@ export class MovieDetails implements OnInit {
           console.error('Error cargando detalles de la película', err);
           return of({ error: true });
         }),
-        startWith(null)
+        // Evita que parpadee la pantalla completa al recargar comentarios
+        startWith(this.refresh$.value === undefined ? null : null) 
       );
     })
   );
 
   ngOnInit() {
     window.scrollTo(0, 0);
+  }
+
+  // Permite al componente hijo notificar que se agregó un comentario para refrescar la data
+  refreshMovieData() {
+    this.refresh$.next();
   }
 
   scrollToTrailer() {

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CommentService } from '../../../../core/services/comment.service';
 import { Comment } from '../../../../core/models/comment.model';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-movie-comments',
@@ -47,7 +48,8 @@ export class MovieComments implements OnInit {
     this.isLoading = true;
     this.commentService.getComments(Number(this.movieId)).subscribe({
       next: (comments: Comment[]) => {
-        this.comments = comments;
+        // Validación preventiva en caso de que la respuesta sea nula o no sea un array
+        this.comments = Array.isArray(comments) ? comments : [];
         this.isLoading = false;
       },
       error: (err: any) => {
@@ -82,18 +84,31 @@ export class MovieComments implements OnInit {
       rating: this.selectedRating,
     };
 
-    this.commentService.createComment(newComment).subscribe({
-      next: (created: Comment) => {
-        this.comments.unshift(created);
-        this.resetForm();
-        this.isFormOpen = false;
-        this.isSubmitting = false;
-      },
-      error: (err: any) => {
-        console.error('Error publicando comentario', err);
-        this.isSubmitting = false;
-      }
-    });
+    this.commentService.createComment(newComment)
+      .pipe(
+        finalize(() => {
+          // Esto garantiza que el botón SIEMPRE vuelva a su estado normal (éxito o error)
+          this.isSubmitting = false;
+        })
+      )
+      .subscribe({
+        next: (created: Comment) => {
+          // Si el backend responde bien pero vacío o con formato inesperado, creamos un fallback
+          const finalComment: Comment = created && created.userName ? created : {
+            ...newComment,
+            id: created?.id || Date.now().toString(),
+            createdAt: created?.createdAt || new Date().toISOString()
+          } as Comment;
+
+          this.comments.unshift(finalComment);
+          this.resetForm();
+          this.isFormOpen = false;
+        },
+        error: (err: any) => {
+          console.error('Error publicando comentario', err);
+          alert('Hubo un error con el servidor al publicar tu comentario. Inténtalo de nuevo.');
+        }
+      });
   }
 
   private resetForm(): void {
@@ -103,9 +118,13 @@ export class MovieComments implements OnInit {
   }
 
   getTimeAgo(dateStr: string | undefined): string {
-    if (!dateStr) return '';
+    if (!dateStr) return 'Justo ahora';
     const now = new Date();
     const date = new Date(dateStr);
+    
+    // Si la fecha es inválida, evitamos que rompa el renderizado mostrando un string por defecto
+    if (isNaN(date.getTime())) return 'Hace un momento';
+
     const diffMs = now.getTime() - date.getTime();
     const diffMins = Math.floor(diffMs / 60000);
     const diffHours = Math.floor(diffMins / 60);
