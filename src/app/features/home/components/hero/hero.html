@@ -1,0 +1,18 @@
+<section class="hero">
+  <div class="hero-bg" [style.backgroundImage]="backdropUrl"></div>
+  <div class="hero-overlay"></div>
+  
+  <div class="hero-content">
+    <h1 class="text-gradient">{{ movie.title }}</h1>
+    <p class="hero-description">{{ movie.overview }}</p>
+    
+    <div class="hero-actions">
+      <button class="btn-premium" [routerLink]="['/movie', movie.id]">
+        <span class="icon">▶</span> Ver detalles
+      </button>
+      <button class="btn-outline" [routerLink]="['/movie', movie.id]">
+        <span class="icon">ℹ</span> Más información
+      </button>
+    </div>
+  </div>
+</section>

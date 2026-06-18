@@ -1,0 +1,55 @@
+@if (featuredMovie()) {
+  <app-hero [movie]="featuredMovie()!"></app-hero>
+  
+  <section class="trending-section slide-up">
+    <h2 class="section-title">Películas en Tendencia</h2>
+    
+    <div class="movie-row">
+      @for (movie of trendingMovies(); track trackById($index, movie)) {
+        <app-movie-card [movie]="movie"></app-movie-card>
+      }
+    </div>
+  </section>
+
+  <section class="trending-section slide-up" style="animation-delay: 0.2s;">
+    <h2 class="section-title">Películas Populares</h2>
+    
+    <div class="movie-grid">
+      @for (movie of popularMovies(); track trackById($index, movie)) {
+        <app-movie-card [movie]="movie"></app-movie-card>
+      }
+    </div>
+
+    <!-- Ancla del Intersection Observer con Skeleton Loader integrado -->
+    <div #scrollAnchor class="scroll-anchor" style="width: 100%; margin-top: 2rem;">
+      @if (isLoading()) {
+        <div class="movie-grid" style="width: 100%; padding: 0; margin: 0;">
+          @for (i of [1, 2, 3, 4, 5]; track i) {
+            <app-skeleton-card></app-skeleton-card>
+          }
+        </div>
+      }
+    </div>
+  </section>
+} @else {
+  <!-- Vista de carga inicial con Esqueletos Shimmer premium -->
+  <app-skeleton-hero></app-skeleton-hero>
+  
+  <section class="trending-section">
+    <h2 class="section-title">Películas en Tendencia</h2>
+    <div class="movie-row" style="overflow: hidden;">
+      @for (i of [1, 2, 3, 4, 5, 6]; track i) {
+        <app-skeleton-card></app-skeleton-card>
+      }
+    </div>
+  </section>
+
+  <section class="trending-section">
+    <h2 class="section-title">Películas Populares</h2>
+    <div class="movie-grid">
+      @for (i of [1, 2, 3, 4, 5, 6, 7, 8]; track i) {
+        <app-skeleton-card></app-skeleton-card>
+      }
+    </div>
+  </section>
+}

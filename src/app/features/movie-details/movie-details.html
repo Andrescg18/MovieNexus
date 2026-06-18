@@ -1,0 +1,104 @@
+@if (movieData$ | async; as state) {
+  @if (state.error) {
+    <div class="error-state">
+      <p>No se pudo cargar la película. Intenta de nuevo más tarde.</p>
+      <a routerLink="/" class="btn-primary">Volver al inicio</a>
+    </div>
+  } @else if (state.data) {
+    <div class="movie-details-container">
+      <div class="backdrop" [style.background-image]="'url(https://image.tmdb.org/t/p/original' + state.data.movie.backdrop_path + ')'">
+        <div class="overlay"></div>
+      </div>
+      
+      <div class="content fade-in">
+        <a routerLink="/" class="back-link slide-up">
+          <span class="icon">←</span> Volver
+        </a>
+        
+        <div class="details-grid">
+          <div class="poster slide-up">
+            <img 
+              [src]="'https://image.tmdb.org/t/p/w500' + state.data.movie.poster_path" 
+              [alt]="state.data.movie.title"
+              [style.view-transition-name]="'movie-poster-' + state.data.movie.id"
+            >
+          </div>
+          
+          <div class="info slide-up" style="animation-delay: 0.1s;">
+            <h1 class="title">{{ state.data.movie.title }}</h1>
+            <div class="meta">
+              <span class="rating">⭐ {{ state.data.movie.vote_average | number:'1.1-1' }}</span>
+              <span class="date">{{ state.data.movie.release_date | date:'yyyy' }}</span>
+              @if (state.data.movie.runtime) {
+                <span class="runtime">{{ state.data.movie.runtime }} min</span>
+              }
+              <span class="lang">{{ state.data.movie.original_language | uppercase }}</span>
+            </div>
+            
+            <p class="tagline">{{ state.data.movie.overview }}</p>
+
+            @if (state.data.movie.genres) {
+              <div class="genres">
+                @for (genre of state.data.movie.genres; track genre.id) {
+                  <span class="genre-badge">{{ genre.name }}</span>
+                }
+              </div>
+            }
+            
+            <div class="actions">
+              <button class="btn-premium" (click)="scrollToTrailer()">
+                <span class="icon">▶</span> Reproducir Trailer
+              </button>
+              <button class="btn-outline">
+                <span class="icon">+</span> Mi Lista
+              </button>
+            </div>
+          </div>
+        </div>
+
+        @defer (on viewport) {
+          <div class="trailer-section slide-up" style="animation-delay: 0.2s;">
+            <h2>Tráiler Oficial</h2>
+            <app-movie-trailer [movieId]="state.data.movie.id.toString()"></app-movie-trailer>
+          </div>
+        } @placeholder {
+          <div class="placeholder-card">
+            <div class="spinner"></div>
+            <p>Haz scroll para ver el tráiler oficial...</p>
+          </div>
+        }
+
+        @defer (on viewport) {
+          <div class="cast-section slide-up" style="animation-delay: 0.3s;">
+            <h2>Elenco Principal</h2>
+            <div class="cast-grid">
+              @for (actor of state.data.cast | slice:0:15; track actor.id) {
+                <app-cast-card [actor]="actor"></app-cast-card>
+              }
+            </div>
+          </div>
+        } @placeholder {
+          <div class="placeholder-card">
+            <div class="spinner"></div>
+            <p>Cargando elenco al hacer scroll...</p>
+          </div>
+        }
+
+        @defer (on immediate) {
+          <app-movie-comments [movieId]="state.data.movie.id"></app-movie-comments>
+        } @placeholder {
+          <div class="placeholder-card">
+            <div class="spinner"></div>
+            <p>Cargando comentarios...</p>
+          </div>
+        }
+
+      </div>
+    </div>
+  }
+} @else {
+  <div class="loading-state">
+    <div class="spinner"></div>
+    <p>Cargando detalles...</p>
+  </div>
+}

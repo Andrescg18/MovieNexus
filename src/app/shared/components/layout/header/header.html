@@ -1,0 +1,45 @@
+<header class="navbar">
+  <div class="logo" routerLink="/" style="cursor: pointer;">
+    <span class="logo-white">Movie</span><span class="logo-red">Nexus</span>
+  </div>
+
+  <div class="search-container">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input 
+        type="text" 
+        [value]="searchQuery()"
+        (input)="onSearch($event)"
+        placeholder="Buscar películas..."
+      >
+      @if (searchQuery()) {
+        <button class="clear-btn" (click)="clearSearch()">✕</button>
+      }
+    </div>
+
+    @if (searchResults().length > 0) {
+      <div class="search-dropdown">
+        @for (movie of searchResults() | slice:0:5; track movie.id) {
+          <div class="search-item" [routerLink]="['/movie', movie.id]" (click)="clearSearch()">
+            <img [src]="'https://image.tmdb.org/t/p/w92' + movie.poster_path" [alt]="movie.title">
+            <div class="item-info">
+              <span class="item-title">{{ movie.title }}</span>
+              <span class="item-year">{{ movie.release_date | date:'yyyy' }}</span>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+
+  <nav class="nav-links">
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Inicio</a>
+    <a routerLink="/favorites" routerLinkActive="active">Favoritos</a>
+    @if (!pwaService.isStandalone()) {
+      <button class="nav-install-btn" (click)="pwaService.resetDismissal()" title="Instalar MovieNexus">
+        <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" class="nav-btn-icon"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        <span>Descargar</span>
+      </button>
+    }
+  </nav>
+</header>
