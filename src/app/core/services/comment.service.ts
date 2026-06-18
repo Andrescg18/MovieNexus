@@ -26,14 +26,24 @@ export class CommentService {
   /**
    * Obtiene los comentarios de un ítem filtrados por tu AppID
    */
+  /**
+   * Obtiene los comentarios del ítem especificado filtrando por APP_ID.
+   * La API del instructor espera los parámetros como query strings.
+   */
   getComments(itemId: string): Observable<Comment[]> {
-    return this.http.get<Comment[]>(`${this.API_URL}/${this.APP_ID}/${itemId}`);
+    const params = { appId: this.APP_ID, itemId };
+    return this.http.get<Comment[]>(this.API_URL, { params });
   }
 
   /**
    * Publica un nuevo comentario en la API del instructor
    */
+  /**
+   * Publica un nuevo comentario. El servidor añade `id` y `createdAt`.
+   * Se incluye `appId` para que el backend pueda asociar el comentario a tu app.
+   */
   addComment(comment: Omit<Comment, 'id' | 'createdAt'>): Observable<Comment> {
-    return this.http.post<Comment>(this.API_URL, comment);
+    const payload = { ...comment, appId: this.APP_ID };
+    return this.http.post<Comment>(this.API_URL, payload);
   }
 }

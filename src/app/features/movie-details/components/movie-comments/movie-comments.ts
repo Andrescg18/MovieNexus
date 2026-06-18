@@ -1,8 +1,8 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { CommentService } from '../../../../core/services/comment.service';
-import { Comment } from '../../../../core/models/comment.model';
+import { CommentService } from '../../../../../core/services/comment.service';
+import { Comment } from '../../../../../core/models/comment.model';
 
 @Component({
   selector: 'app-movie-comments',
