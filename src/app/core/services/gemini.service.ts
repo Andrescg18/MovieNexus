@@ -21,7 +21,7 @@ export class GeminiService {
   messages = signal<ChatMessage[]>([
     {
       role: 'assistant',
-      text: '¡Hola! Soy **Nexus AI**, tu asistente cinéfilo personal. ¿Qué tipo de película te apetece ver hoy o sobre cuál te gustaría charlar? 🎬',
+      text: '¡Hola! Soy **Tu Botsito AI**, tu asistente cinéfilo personal. ¿Qué tipo de película te apetece ver hoy o sobre cuál te gustaría charlar? 🎬',
       timestamp: new Date()
     }
   ]);
@@ -86,7 +86,7 @@ export class GeminiService {
       this.messages.update(prev => [...prev, assistantMsg]);
 
     } catch (err) {
-      console.error('Error de comunicación con Nexus AI:', err);
+      console.error('Error de comunicación con Tu Botsito AI:', err);
       const errorMsg: ChatMessage = {
         role: 'assistant',
         text: 'Lo siento, he tenido un problema de conexión con mi proyector central de películas. Por favor, vuelve a intentarlo en un momento. 🔌',

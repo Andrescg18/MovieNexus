@@ -1,10 +1,10 @@
 <!-- Botón Flotante para abrir/cerrar el Chat -->
-<button class="chat-launcher" (click)="toggleChat()" [class.active]="isOpen" aria-label="Abrir Asistente Nexus AI">
+<button class="chat-launcher" (click)="toggleChat()" [class.active]="isOpen" aria-label="Abrir Asistente Tu Botsito AI">
   @if (isOpen) {
     <span class="launcher-icon">✕</span>
   } @else {
     <span class="launcher-icon">🤖</span>
-    <span class="launcher-badge">Nexus AI</span>
+    <span class="launcher-badge">Tu Botsito AI</span>
   }
 </button>
 
@@ -16,7 +16,7 @@
       <div class="header-info">
         <span class="bot-avatar">🤖</span>
         <div>
-          <h3>Nexus AI</h3>
+          <h3>Tu Botsito AI</h3>
           <span class="online-status">En línea - Cinéfilo Experto</span>
         </div>
       </div>
