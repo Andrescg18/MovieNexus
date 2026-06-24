@@ -1,0 +1,94 @@
+<!-- Botón Flotante para abrir/cerrar el Chat -->
+<button class="chat-launcher" (click)="toggleChat()" [class.active]="isOpen" aria-label="Abrir Asistente Nexus AI">
+  @if (isOpen) {
+    <span class="launcher-icon">✕</span>
+  } @else {
+    <span class="launcher-icon">🤖</span>
+    <span class="launcher-badge">Nexus AI</span>
+  }
+</button>
+
+<!-- Contenedor del Chat Flotante -->
+@if (isOpen) {
+  <div class="chat-container slide-up-chat">
+    <!-- Cabecera del Chat -->
+    <div class="chat-header">
+      <div class="header-info">
+        <span class="bot-avatar">🤖</span>
+        <div>
+          <h3>Nexus AI</h3>
+          <span class="online-status">En línea - Cinéfilo Experto</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn-clear" (click)="clearChat()" title="Reiniciar chat">🧹</button>
+        <button class="btn-close" (click)="toggleChat()" title="Cerrar chat">✕</button>
+      </div>
+    </div>
+
+    <!-- Historial de Conversación -->
+    <div class="chat-messages" #scrollContainer>
+      @for (msg of geminiService.messages(); track msg.timestamp) {
+        <div class="message-wrapper" [class.user-wrapper]="msg.role === 'user'">
+          <div class="message-avatar">
+            {{ msg.role === 'user' ? '👤' : '🤖' }}
+          </div>
+          <div class="message-bubble" [class.user-bubble]="msg.role === 'user'">
+            <div class="message-text" [innerHTML]="formatMarkdown(msg.text)"></div>
+            
+            <!-- Carrusel de Recomendaciones -->
+            @if (msg.recommendations && msg.recommendations.length > 0) {
+              <div class="recommendations-container">
+                <span class="recommendations-title">Recomendaciones sugeridas:</span>
+                <div class="movies-carousel">
+                  @for (movie of msg.recommendations; track movie.id) {
+                    <a [routerLink]="['/movie', movie.id]" class="movie-recommendation-card" (click)="toggleChat()">
+                      <img [src]="getMovieImageUrl(movie.poster_path)" [alt]="movie.title" class="movie-poster" />
+                      <div class="movie-info">
+                        <span class="movie-title">{{ movie.title }}</span>
+                        <div class="movie-meta">
+                          <span class="movie-rating">★ {{ movie.vote_average | number:'1.1-1' }}</span>
+                        </div>
+                      </div>
+                    </a>
+                  }
+                </div>
+              </div>
+            }
+            
+            <span class="message-time">{{ msg.timestamp | date:'shortTime' }}</span>
+          </div>
+        </div>
+      }
+
+      <!-- Indicador de Escritura de la IA -->
+      @if (geminiService.isGenerating()) {
+        <div class="message-wrapper">
+          <div class="message-avatar">🤖</div>
+          <div class="message-bubble loading-bubble">
+            <div class="typing-indicator">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Input de Entrada de Texto -->
+    <div class="chat-input-area">
+      <input
+        #chatInput
+        type="text"
+        placeholder="Pregúntame sobre películas, géneros o actores..."
+        [(ngModel)]="userInput"
+        (keyup.enter)="send()"
+        [disabled]="geminiService.isGenerating()"
+      />
+      <button class="btn-send" (click)="send()" [disabled]="!userInput.trim() || geminiService.isGenerating()" aria-label="Enviar mensaje">
+        <span class="send-icon">➤</span>
+      </button>
+    </div>
+  </div>
+}

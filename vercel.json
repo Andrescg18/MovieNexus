@@ -31,6 +31,10 @@
   ],
   "rewrites": [
     {
+      "source": "/api/chat",
+      "destination": "/api/chat.js"
+    },
+    {
       "source": "/(index\\.html|favicon\\.ico|manifest\\.webmanifest|ngsw-worker\\.js|ngsw\\.json|assets/.*|.*\\.js|.*\\.css|.*\\.png|.*\\.jpg|.*\\.jpeg|.*\\.gif|.*\\.svg|.*\\.webp|.*\\.woff|.*\\.woff2)",
       "destination": "/$1"
     },
