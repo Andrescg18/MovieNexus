@@ -29,16 +29,17 @@ export class CommentService {
   getComments(movieId: number): Observable<Comment[]> {
     return this.http.get<ApiComment[]>(this.API_URL).pipe(
       map((apiComments: ApiComment[]) => {
+        if (!Array.isArray(apiComments)) return [];
         const targetItemId = `movie-${movieId}`;
         return apiComments
-          .filter(c => c.appId === this.APP_ID && c.itemId === targetItemId)
+          .filter(c => c && c.appId === this.APP_ID && c.itemId === targetItemId)
           .map(c => ({
             id: c.id ? String(c.id) : undefined,
-            appId: c.appId,
+            appId: c.appId || this.APP_ID,
             movieId: movieId,
-            userName: c.author,
-            rating: c.rating,
-            comment: c.text,
+            userName: c.author || 'Anónimo',
+            rating: c.rating || 5,
+            comment: c.text || '',
             createdAt: c.createdAt
           }));
       })
@@ -60,11 +61,11 @@ export class CommentService {
     return this.http.post<ApiComment>(this.API_URL, apiPayload).pipe(
       map((created: ApiComment) => ({
         id: created.id ? String(created.id) : undefined,
-        appId: created.appId,
+        appId: created.appId || this.APP_ID,
         movieId: comment.movieId,
-        userName: created.author,
-        rating: created.rating,
-        comment: created.text,
+        userName: created.author || 'Anónimo',
+        rating: created.rating || 5,
+        comment: created.text || '',
         createdAt: created.createdAt
       }))
     );

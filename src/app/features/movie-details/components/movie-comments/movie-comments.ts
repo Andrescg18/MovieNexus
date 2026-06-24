@@ -1,9 +1,8 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, Input, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CommentService } from '../../../../core/services/comment.service';
 import { Comment } from '../../../../core/models/comment.model';
-import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-movie-comments',
@@ -16,6 +15,7 @@ export class MovieComments implements OnInit {
   @Input() movieId!: string | number;
 
   private commentService = inject(CommentService);
+  private cdr = inject(ChangeDetectorRef);
 
   comments: Comment[] = [];
   isFormOpen = false;
@@ -46,16 +46,21 @@ export class MovieComments implements OnInit {
 
   loadComments(): void {
     this.isLoading = true;
+    this.cdr.markForCheck();
+    
     this.commentService.getComments(Number(this.movieId)).subscribe({
       next: (comments: Comment[]) => {
-        // Validación preventiva en caso de que la respuesta sea nula o no sea un array
-        this.comments = Array.isArray(comments) ? comments : [];
+        this.comments = comments;
         this.isLoading = false;
+        this.cdr.markForCheck();
+        this.cdr.detectChanges();
       },
       error: (err: any) => {
         console.error('Error cargando comentarios', err);
         this.comments = [];
         this.isLoading = false;
+        this.cdr.markForCheck();
+        this.cdr.detectChanges();
       }
     });
   }
@@ -65,16 +70,19 @@ export class MovieComments implements OnInit {
     if (!this.isFormOpen) {
       this.resetForm();
     }
+    this.cdr.markForCheck();
   }
 
   setRating(rating: number): void {
     this.selectedRating = rating;
+    this.cdr.markForCheck();
   }
 
   submitComment(): void {
     if (!this.isFormValid || this.isSubmitting) return;
 
     this.isSubmitting = true;
+    this.cdr.markForCheck();
 
     const newComment: Omit<Comment, 'id' | 'createdAt'> = {
       appId: 'MovieNexus-AndresGuardia',
@@ -84,47 +92,35 @@ export class MovieComments implements OnInit {
       rating: this.selectedRating,
     };
 
-    this.commentService.createComment(newComment)
-      .pipe(
-        finalize(() => {
-          // Esto garantiza que el botón SIEMPRE vuelva a su estado normal (éxito o error)
-          this.isSubmitting = false;
-        })
-      )
-      .subscribe({
-        next: (created: Comment) => {
-          // Si el backend responde bien pero vacío o con formato inesperado, creamos un fallback
-          const finalComment: Comment = created && created.userName ? created : {
-            ...newComment,
-            id: created?.id || Date.now().toString(),
-            createdAt: created?.createdAt || new Date().toISOString()
-          } as Comment;
-
-          this.comments.unshift(finalComment);
-          this.resetForm();
-          this.isFormOpen = false;
-        },
-        error: (err: any) => {
-          console.error('Error publicando comentario', err);
-          alert('Hubo un error con el servidor al publicar tu comentario. Inténtalo de nuevo.');
-        }
-      });
+    this.commentService.createComment(newComment).subscribe({
+      next: (created: Comment) => {
+        this.comments.unshift(created);
+        this.resetForm();
+        this.isFormOpen = false;
+        this.isSubmitting = false;
+        this.cdr.markForCheck();
+        this.cdr.detectChanges();
+      },
+      error: (err: any) => {
+        console.error('Error publicando comentario', err);
+        this.isSubmitting = false;
+        this.cdr.markForCheck();
+        this.cdr.detectChanges();
+      }
+    });
   }
 
   private resetForm(): void {
     this.authorName = '';
     this.commentText = '';
     this.selectedRating = 5;
+    this.cdr.markForCheck();
   }
 
   getTimeAgo(dateStr: string | undefined): string {
-    if (!dateStr) return 'Justo ahora';
+    if (!dateStr) return '';
     const now = new Date();
     const date = new Date(dateStr);
-    
-    // Si la fecha es inválida, evitamos que rompa el renderizado mostrando un string por defecto
-    if (isNaN(date.getTime())) return 'Hace un momento';
-
     const diffMs = now.getTime() - date.getTime();
     const diffMins = Math.floor(diffMs / 60000);
     const diffHours = Math.floor(diffMins / 60);
