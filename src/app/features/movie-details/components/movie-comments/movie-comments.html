@@ -1,11 +1,10 @@
 <section class="comments-section" id="comments-section">
-  <!-- Header -->
   <div class="comments-header">
     <div class="header-left">
       <span class="comments-icon">💬</span>
       <h2>COMENTARIOS</h2>
     </div>
-    <button class="btn-toggle" (click)="toggleForm()">
+    <button type="button" class="btn-toggle" (click)="toggleForm()">
       @if (isFormOpen) {
         <span class="cancel-icon">✕</span> Cancelar
       } @else {
@@ -14,7 +13,6 @@
     </button>
   </div>
 
-  <!-- Formulario de nuevo comentario -->
   @if (isFormOpen) {
     <div class="comment-form-card slide-down">
       <h3 class="form-title">Nuevo Comentario</h3>
@@ -57,6 +55,7 @@
       </div>
 
       <button
+        type="button"
         class="btn-submit"
         [disabled]="!isFormValid || isSubmitting"
         (click)="submitComment()"
@@ -70,7 +69,6 @@
     </div>
   }
 
-  <!-- Lista de comentarios -->
   <div class="comments-list">
     @if (isLoading) {
       <div class="loading-comments">

@@ -1,9 +1,9 @@
 export interface Comment {
-  id?: number;
+  id?: string;
   appId: string;
-  itemId: string;
-  author: string;
-  text: string;
+  movieId: number;
+  userName: string;
   rating: number;
+  comment: string;
   createdAt?: string;
 }
